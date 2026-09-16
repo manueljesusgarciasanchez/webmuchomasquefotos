@@ -1,26 +1,67 @@
 @import "tailwindcss";
 
+/* ============================================================================
+   MUCHO MÁS QUE FOTOS — sistema visual
+   Editorial, oscuro, dejando que la fotografía sea la protagonista.
+   ============================================================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0a0a0c;
+  --bg-2: #111114;
+  --surface: #17171b;
+  --surface-2: #1e1e23;
+  --border: #2a2a30;
+  --ink: #f5f4f0;
+  --ink-soft: #b7b5ae;
+  --ink-mute: #78766f;
+
+  --amber: #f2a13a;
+  --amber-bright: #ffb84d;
+  --violet: #8b7cf6;
+  --violet-bright: #a596ff;
+
+  --font-display: var(--font-fraunces), "Fraunces", Georgia, serif;
+  --font-body: var(--font-inter), "Inter", system-ui, sans-serif;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-mute: var(--ink-mute);
+  --color-amber: var(--amber);
+  --color-amber-bright: var(--amber-bright);
+  --color-violet: var(--violet);
+  --color-violet-bright: var(--violet-bright);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+* { border-color: var(--border); }
+html { scroll-behavior: smooth; background: var(--bg); }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
+::selection { background: var(--amber); color: #0a0a0c; }
+h1, h2, h3 { font-family: var(--font-display); }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 30s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .animate-marquee { animation: none; }
+}
+
+.text-balance { text-wrap: balance; }
