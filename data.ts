@@ -81,6 +81,7 @@ export const site = {
     url: "https://muchomasquefotos.com/2026/09/17/186-la-ia-se-ha-vuelto-loca-novedades-polemicas-y-el-fin-de-la-humanidad/",
     invitado: "Juan Pablo de Miguel",
     imagen: "/episodios/186-ia-se-ha-vuelto-loca.webp",
+    youtubeId: "M3UO69wHhms",
   },
 
   /* ---- episodios (reales, de su archivo público) -------------------------- */
@@ -155,10 +156,22 @@ export const site = {
   },
 
   /* ---- presentadores ------------------------------------------------------
-     2 confirmados con datos reales de su Instagram público (con permiso de
-     Manu para esta demo). Los otros 4, marcador de posición hasta que se
-     confirme quién es quién y consigan sus fotos. */
+     Pau Prada, Daniel Viñé y Alberto Moreno confirmados con datos reales de
+     su Instagram público (con permiso de Manu para esta demo). Los otros 2,
+     marcador de posición hasta que se confirme quién es quién y sus fotos. */
   presentadores: [
+    {
+      id: "pau-prada",
+      nombre: "Pau Prada",
+      alias: "@pau_prada",
+      bio: "Fotografía Social, de Estudio y Eventos. Presenta y produce Mucho Más Que Fotos.",
+      logros: ["815 seguidores en Instagram", "1089 publicaciones"],
+      avatar: "/presentadores/pau-prada-avatar.webp",
+      portfolio: [],
+      instagram: "https://www.instagram.com/pau_prada",
+      web: "https://pauprada.com/mis-enlaces",
+      confirmado: true,
+    },
     {
       id: "daniel-vine",
       nombre: "Daniel Viñé",
@@ -190,7 +203,6 @@ export const site = {
       instagram: "https://www.instagram.com/enisosbajas",
       confirmado: true,
     },
-    { id: "pau-prada", nombre: "Pau Prada", bio: "Presentador habitual de Mucho Más Que Fotos.", logros: [], portfolio: [], confirmado: false },
     { id: "fernando-davila", nombre: "Fernando Dávila", bio: "Presentador habitual de Mucho Más Que Fotos.", logros: [], portfolio: [], confirmado: false },
     { id: "dioni-cobos", nombre: "Dioni Cobos", bio: "Presentador habitual de Mucho Más Que Fotos.", logros: [], portfolio: [], confirmado: false },
   ] as Presentador[],

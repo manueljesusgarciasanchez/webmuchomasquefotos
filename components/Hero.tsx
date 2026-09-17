@@ -2,42 +2,75 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { site } from "@/data";
+import { site, type SeccionPrograma, type Episodio } from "@/data";
 import { SpotifyIcon, YoutubeIcon, InstagramIcon } from "./icons";
 
-/* Hero centrado en el podcast: texto propio a un lado, su carátula real
-   (ilustración que ya usan ellos) al otro, sin recortarla ni encimarle texto. */
+const secciones = site.secciones as unknown as SeccionPrograma[];
+const episodios = site.episodios as unknown as Episodio[];
+
+/* pared de fotos real: carátula + pósters de secciones + carátulas de
+   episodios que ya tenemos, en vez de una sola foto suelta */
+const collage = [
+  site.hero.portada,
+  ...secciones.map((s) => s.cartel),
+  ...episodios.map((e) => e.imagen).filter((x): x is string => Boolean(x)),
+].slice(0, 10);
+
+const ticker = [
+  ...episodios.filter((e) => e.imagen).map((e) => `#${e.numero}`),
+  ...secciones.map((s) => s.nombre.toUpperCase()),
+];
+
+/* Hero "boom": pared de fotos reales de fondo (no una sola imagen suelta),
+   con el titular grande encima y una cinta con episodios y secciones. */
 export function Hero() {
   return (
-    <section id="top" className="bg-grain relative overflow-hidden bg-bg pt-24 sm:pt-28">
+    <section id="top" className="bg-grain relative min-h-[640px] overflow-hidden bg-bg pt-24 sm:min-h-[760px] sm:pt-28 lg:min-h-[820px]">
+      {/* pared de fotos reales */}
+      <div aria-hidden className="absolute inset-0 z-0 grid grid-cols-5 grid-rows-2 gap-2 p-2 sm:gap-3 sm:p-3">
+        {collage.map((src, i) => (
+          <div key={i} className="relative overflow-hidden rounded-xl border border-white/5">
+            <Image src={src} alt="" fill sizes="20vw" className="object-cover" priority={i < 3} />
+          </div>
+        ))}
+      </div>
+
+      {/* velo oscuro para que el texto se lea */}
       <div
         aria-hidden
-        className="absolute inset-0"
+        className="absolute inset-0 z-10"
         style={{
           background:
-            "radial-gradient(circle at 15% 20%, rgba(214,51,143,.22), transparent 45%), radial-gradient(circle at 90% 80%, rgba(242,161,58,.18), transparent 50%)",
+            "linear-gradient(105deg, var(--bg) 0%, var(--bg) 46%, rgba(10,10,12,.88) 60%, rgba(10,10,12,.5) 78%, rgba(10,10,12,.15) 100%)",
+        }}
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 z-10"
+        style={{
+          background:
+            "radial-gradient(circle at 10% 10%, rgba(214,51,143,.2), transparent 40%), linear-gradient(180deg, transparent 55%, var(--bg) 100%)",
         }}
       />
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-10 px-5 pb-16 lg:grid-cols-[1.15fr_0.85fr] lg:gap-6 lg:pb-24">
-        {/* texto */}
-        <div className="text-center lg:text-left">
+      <div className="relative z-20 mx-auto max-w-6xl px-5 pb-16 lg:pb-24">
+        <div className="max-w-2xl text-center lg:text-left">
           {/* logo real a color, compartiendo espacio con el titular, sin pisarlo */}
           <div className="flex flex-col items-center gap-5 sm:flex-row sm:items-center lg:items-start lg:justify-start">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="relative h-24 w-24 shrink-0 sm:h-28 sm:w-28 lg:h-32 lg:w-32"
+              className="relative h-24 w-24 shrink-0 sm:h-28 sm:w-28 lg:h-36 lg:w-36"
             >
-              <Image src={site.logo} alt={site.marca.nombre} fill sizes="128px" className="object-contain drop-shadow-[0_0_28px_rgba(214,51,143,0.35)]" priority />
+              <Image src={site.logo} alt={site.marca.nombre} fill sizes="144px" unoptimized className="object-contain drop-shadow-[0_0_28px_rgba(214,51,143,0.4)]" priority />
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display text-5xl font-extralight leading-[0.94] tracking-tight sm:text-6xl lg:text-7xl"
+              className="font-display text-6xl font-extralight leading-[0.92] tracking-tight drop-shadow-[0_4px_24px_rgba(0,0,0,0.6)] sm:text-7xl lg:text-8xl"
             >
               Mucho más
               <br />
@@ -87,23 +120,18 @@ export function Hero() {
             </a>
           </motion.div>
         </div>
+      </div>
 
-        {/* carátula real */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.96 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.15 }}
-          className="relative mx-auto w-full max-w-sm"
-        >
-          <div
-            aria-hidden
-            className="absolute -inset-4 rounded-[2rem] opacity-40 blur-2xl"
-            style={{ background: "linear-gradient(135deg, var(--violet), var(--amber))" }}
-          />
-          <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-border shadow-2xl shadow-black/60">
-            <Image src={site.hero.portada} alt={site.marca.nombre} fill sizes="(max-width: 1024px) 90vw, 420px" className="object-cover" priority />
-          </div>
-        </motion.div>
+      {/* cinta en movimiento con episodios y secciones reales */}
+      <div className="relative z-20 overflow-hidden border-t border-white/10 bg-bg/60 py-3 backdrop-blur-sm">
+        <div className="flex w-max animate-marquee whitespace-nowrap">
+          {[...ticker, ...ticker].map((t, i) => (
+            <span key={i} className="mx-4 flex items-center gap-4 text-sm font-semibold uppercase tracking-wide text-ink-mute">
+              {t}
+              <span className="text-amber-bright">·</span>
+            </span>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -24,43 +24,35 @@ export function Equipo() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="mt-10 grid grid-cols-2 gap-3 sm:grid-cols-3">
+          <div className="mt-10 flex flex-wrap justify-center gap-x-6 gap-y-5 sm:justify-start">
             {presentadores.map((p) => {
               const active = open === p.id;
               return (
                 <button
                   key={p.id}
                   onClick={() => setOpen(active ? null : p.id)}
-                  className={`group relative aspect-[3/4] overflow-hidden rounded-2xl border text-left transition-all ${
-                    active ? "border-amber ring-2 ring-amber" : "border-border hover:border-ink-mute"
-                  }`}
+                  className="flex flex-col items-center gap-2"
                 >
-                  {p.avatar ? (
-                    <Image
-                      src={p.avatar}
-                      alt={p.nombre}
-                      fill
-                      sizes="(max-width: 640px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  ) : (
-                    <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-surface text-ink-mute">
-                      <ImageOff size={26} />
-                      <span className="text-[11px]">Foto pendiente</span>
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/20 to-transparent" />
-                  <div className="absolute inset-x-0 bottom-0 p-3">
-                    <p className="font-display text-base font-semibold leading-tight text-ink sm:text-lg">
-                      {p.nombre}
-                    </p>
-                    {p.alias && <p className="text-xs text-ink-soft">{p.alias}</p>}
-                    {!p.confirmado && (
-                      <p className="mt-0.5 text-[10px] uppercase tracking-wide text-violet-bright">
-                        por confirmar
-                      </p>
-                    )}
-                  </div>
+                  <span
+                    className={`block rounded-full p-[2.5px] transition-all ${
+                      active ? "bg-[linear-gradient(135deg,var(--amber-bright),var(--violet),var(--logo-purple))]" : "bg-border"
+                    }`}
+                  >
+                    <span className="block rounded-full bg-bg-2 p-[2.5px]">
+                      <span className="relative block h-16 w-16 overflow-hidden rounded-full bg-surface sm:h-20 sm:w-20">
+                        {p.avatar ? (
+                          <Image src={p.avatar} alt={p.nombre} fill sizes="80px" className="object-cover" />
+                        ) : (
+                          <div className="flex h-full w-full items-center justify-center text-ink-mute">
+                            <ImageOff size={20} />
+                          </div>
+                        )}
+                      </span>
+                    </span>
+                  </span>
+                  <span className={`max-w-[5.5rem] truncate text-xs font-medium ${active ? "text-ink" : "text-ink-soft"}`}>
+                    {p.nombre.split(" ")[0]}
+                  </span>
                 </button>
               );
             })}

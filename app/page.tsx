@@ -18,10 +18,12 @@ export default function Home() {
         <Hero />
         <Divider fill="var(--bg-2)" />
         <UltimoEpisodio />
+        <Divider fill="var(--bg)" />
+        <Episodios />
+        <Divider fill="var(--bg-2)" />
         <Secciones />
         <Divider fill="var(--bg)" />
         <MasEscuchados />
-        <Episodios />
         <Divider fill="var(--bg-2)" />
         <Equipo />
         <Divider fill="var(--bg)" />
