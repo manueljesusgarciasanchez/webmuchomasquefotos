@@ -5,7 +5,7 @@ import { Reveal } from "./Reveal";
 export function Patrocinadores() {
   const p = site.patrocinadores;
   return (
-    <section id="patrocinadores" className="scroll-mt-16 bg-bg py-16 sm:py-20">
+    <section id="patrocinadores" className="scroll-mt-16 bg-bg py-10 sm:py-14">
       <div className="mx-auto max-w-4xl px-5">
         <Reveal>
           <div className="rounded-3xl border border-dashed border-violet/40 bg-bg-2 p-6 sm:p-10">

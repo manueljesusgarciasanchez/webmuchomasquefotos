@@ -19,7 +19,7 @@ export function proxy(_req: NextRequest) {
       p{color:#b7b5ae;line-height:1.6;margin:.4rem 0}
     </style></head><body><div>
       <h1>Esta propuesta ya no está disponible</h1>
-      <p>La demo de Mucho Más Que Fotos preparada por WEBMD tenía una fecha de validez que ya ha pasado.</p>
+      <p>La demo de Mucho Más Que Fotos preparada por queverenislandia.es tenía una fecha de validez que ya ha pasado.</p>
       <p>Si quieres retomarla, escríbenos y la reactivamos.</p>
     </div></body></html>`,
     { status: 410, headers: { "content-type": "text/html; charset=utf-8" } },

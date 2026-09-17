@@ -13,7 +13,7 @@ export function Equipo() {
   const abierto = presentadores.find((p) => p.id === open);
 
   return (
-    <section id="equipo" className="relative scroll-mt-16 bg-bg-2 py-20 sm:py-28">
+    <section id="equipo" className="relative scroll-mt-16 bg-bg-2 py-10 sm:py-14">
       <div className="mx-auto max-w-6xl px-5">
         <Reveal>
           <p className="text-xs font-semibold uppercase tracking-[0.2em] text-amber-bright">Quiénes somos</p>

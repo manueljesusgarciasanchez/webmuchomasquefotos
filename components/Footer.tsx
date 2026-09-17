@@ -1,9 +1,19 @@
 import { Send, Coffee, Camera } from "lucide-react";
 import { site } from "@/data";
-import { InstagramIcon } from "./icons";
+import { InstagramIcon, SpotifyIcon, YoutubeIcon, XIcon, FacebookIcon, TikTokIcon, ThreadsIcon } from "./icons";
+
+const social = [
+  { href: site.contacto.instagram, label: "Instagram", Icon: InstagramIcon },
+  { href: site.contacto.spotify, label: "Spotify", Icon: SpotifyIcon },
+  { href: site.contacto.youtube, label: "YouTube", Icon: YoutubeIcon },
+  { href: site.contacto.x, label: "X", Icon: XIcon },
+  { href: site.contacto.facebook, label: "Facebook", Icon: FacebookIcon },
+  { href: site.contacto.tiktok, label: "TikTok", Icon: TikTokIcon },
+  { href: site.contacto.threads, label: "Threads", Icon: ThreadsIcon },
+];
 
 export function Footer() {
-  const { contacto, plataformas } = site;
+  const { contacto } = site;
   return (
     <footer className="border-t border-border bg-bg">
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 md:grid-cols-3">
@@ -13,16 +23,23 @@ export function Footer() {
             <span className="font-display text-xl font-semibold italic">{site.marca.nombre}</span>
           </div>
           <p className="mt-4 max-w-xs text-sm text-ink-soft">{site.marca.descripcionCorta}</p>
-          <div className="mt-5 flex gap-3">
-            <a
-              href={contacto.instagram}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-ink-soft transition-colors hover:border-amber hover:text-amber-bright"
-            >
-              <InstagramIcon />
-            </a>
+        </div>
+
+        <div className="text-sm">
+          <p className="font-semibold text-ink">Escúchanos y síguenos en</p>
+          <div className="mt-4 flex flex-wrap gap-2.5">
+            {social.map(({ href, label, Icon }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={label}
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-border text-ink-soft transition-colors hover:border-amber hover:text-amber-bright"
+              >
+                <Icon width={18} height={18} />
+              </a>
+            ))}
             <a
               href={contacto.telegram}
               target="_blank"
@@ -42,15 +59,6 @@ export function Footer() {
               <Coffee size={18} />
             </a>
           </div>
-        </div>
-
-        <div className="text-sm">
-          <p className="font-semibold text-ink">Escúchanos en</p>
-          <ul className="mt-3 space-y-1.5 text-ink-soft">
-            {plataformas.map((pl) => (
-              <li key={pl}>{pl}</li>
-            ))}
-          </ul>
         </div>
 
         <div className="text-sm">
