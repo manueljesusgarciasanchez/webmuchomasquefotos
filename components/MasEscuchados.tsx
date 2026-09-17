@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Flame, ArrowUpRight } from "lucide-react";
 import { site, type Episodio } from "@/data";
 
@@ -19,18 +20,31 @@ export function MasEscuchados() {
               href={ep.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex flex-col rounded-2xl border border-border bg-surface p-5 transition-colors hover:border-violet/50"
+              className="group relative flex flex-col overflow-hidden rounded-2xl border border-border bg-surface p-5 transition-colors hover:border-violet/50"
             >
-              <div className="flex items-center justify-between">
+              {ep.imagen && (
+                <>
+                  <Image
+                    src={ep.imagen}
+                    alt=""
+                    fill
+                    sizes="(max-width: 640px) 100vw, 33vw"
+                    className="object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-bg via-bg/85 to-bg/40 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                </>
+              )}
+
+              <div className="relative flex items-center justify-between">
                 <span className="flex items-center gap-1 font-display text-lg font-bold text-violet-bright">
                   <Flame size={16} /> #{i + 1}
                 </span>
                 <span className="text-xs text-ink-mute">#{ep.numero}</span>
               </div>
-              <h3 className="mt-3 font-display text-base font-semibold leading-snug text-ink group-hover:text-violet-bright">
+              <h3 className="relative mt-3 font-display text-base font-semibold leading-snug text-ink group-hover:text-violet-bright">
                 {ep.titulo}
               </h3>
-              <span className="mt-auto flex items-center gap-1 pt-4 text-xs text-ink-mute">
+              <span className="relative mt-auto flex items-center gap-1 pt-4 text-xs text-ink-mute">
                 Escuchar <ArrowUpRight size={12} />
               </span>
             </a>

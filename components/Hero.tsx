@@ -16,13 +16,7 @@ const collage = [
   ...episodios.map((e) => e.imagen).filter((x): x is string => Boolean(x)),
 ].slice(0, 10);
 
-const ticker = [
-  ...episodios.filter((e) => e.imagen).map((e) => `#${e.numero}`),
-  ...secciones.map((s) => s.nombre.toUpperCase()),
-];
-
-/* Hero "boom": pared de fotos reales de fondo (no una sola imagen suelta),
-   con el titular grande encima y una cinta con episodios y secciones. */
+/* Hero "boom": pared de fotos reales de fondo, no una sola imagen suelta. */
 export function Hero() {
   return (
     <section id="top" className="bg-grain relative min-h-[640px] overflow-hidden bg-bg pt-24 sm:min-h-[760px] sm:pt-28 lg:min-h-[820px]">
@@ -119,18 +113,27 @@ export function Hero() {
               <InstagramIcon />
             </a>
           </motion.div>
-        </div>
-      </div>
 
-      {/* cinta en movimiento con episodios y secciones reales */}
-      <div className="relative z-20 overflow-hidden border-t border-white/10 bg-bg/60 py-3 backdrop-blur-sm">
-        <div className="flex w-max animate-marquee whitespace-nowrap">
-          {[...ticker, ...ticker].map((t, i) => (
-            <span key={i} className="mx-4 flex items-center gap-4 text-sm font-semibold uppercase tracking-wide text-ink-mute">
-              {t}
-              <span className="text-amber-bright">·</span>
+          {/* Instagram con más peso: Trivial y sorteos están ahí */}
+          <motion.a
+            href={site.contacto.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-6 flex items-center justify-center gap-3 lg:justify-start"
+          >
+            <span
+              className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-white shadow-lg shadow-black/30 transition-transform"
+              style={{ background: "linear-gradient(135deg, #f9ce34, #ee2a7b, #6228d7)" }}
+            >
+              <InstagramIcon width={23} height={23} />
             </span>
-          ))}
+            <span className="text-left text-base font-semibold text-ink">
+              Únete a Instagram y accede a Sorteos y a nuestro Trivial!
+            </span>
+          </motion.a>
         </div>
       </div>
     </section>
